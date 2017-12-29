@@ -7,9 +7,10 @@ class Beers extends Component {
 state = { beers: []}
 
   componentDidMount() {
-    axios.get(`/api/all_beers`)
+    axios.get(`/api/all_beers?page=1&per_page=10`)
     .then( res => {
       this.setState({ beers: res.data.entries });
+      
     })
     .catch( err => {
       console.log(err);
@@ -17,14 +18,20 @@ state = { beers: []}
   }
 
   displayBeers = () => {
-    return this.state.beers.map( beer => {
+    return this.state.beers.map( beer => { 
       return(
-     <Table.Body> 
+     <Table.Body > 
        <Table.Row> 
-           <Table.Cell>
-           <Link to='#'> 
+           <Table.Cell width={4} style={{ paddingLeft: '10%'}}>
+           <Link to='#'>
            {beer.name}
            </Link> 
+           <br />
+           </Table.Cell>
+           <Table.Cell style={{ paddingRight: '10%'}} width={12}>
+           <p> 
+           {beer.description}
+           </p> 
            <br />
            </Table.Cell>
          </Table.Row>

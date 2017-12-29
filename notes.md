@@ -3,3 +3,10 @@ Tound a way to copy the DPS repo into one I created...and then read that I could
 
 12/27 6:18pm - 11pm
 I spent 5 hours off and on attempting to figure out how to grap data using the external API.
+
+12/28 11:00am-1:00pm 
+Figured out how to get the beers and breweries to show up. Turns how I needed to do res.data.entries. Spent a long time reading about grabbing objects. Can't figure out how to grab images from the API. They are nested objects... 
+
+10:00pm-midnight 
+Working on pagination. Will attempt inifinite scroll if I have time. 
+ 
