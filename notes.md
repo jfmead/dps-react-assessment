@@ -10,3 +10,7 @@ Figured out how to get the beers and breweries to show up. Turns how I needed to
 10:00pm-midnight 
 Working on pagination. Will attempt inifinite scroll if I have time. 
  
+12/29 11:00am-noon 
+Got images to show up with beers and breweries. Had to create a conditional because not all beers/breweries have images. Used a placeholder for those that don't. 
+
+6:04pm
