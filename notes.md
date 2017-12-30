@@ -13,4 +13,15 @@ Working on pagination. Will attempt inifinite scroll if I have time.
 12/29 11:00am-noon 
 Got images to show up with beers and breweries. Had to create a conditional because not all beers/breweries have images. Used a placeholder for those that don't. 
 
-6:04pm
+6:04pm - 8:50pm 
+Still messing with infinite scroll... I created an infinite loop. Page 2 is loading over  and over again but nothing is rendering. The page number should update from /api/all_breweries?page=1&per_page=10 to /api/all_breweries?page=2&per_page=10 up to page 5 since I only want 50 breweries total. 
+
+10:30pm-midnight
+Built a single page view for a beer. Tried to cheat by creating a new route beer/:id but axios was still trying to grab data from beer/:name. Finally figured out how to use name to grab the details of the beer. As always I complicate things for myself...Now attempting to get data to show up. I know there's data for the beer because I can see it in the dev tools. But how do I grab data from: 
+  beer: Array[1]
+    0: {}
+      description: 'a;ksdjfla' 
+      name: 'asdl;kfjads' 
+      etc: 'askl;dfja' 
+
+      

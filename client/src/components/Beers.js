@@ -23,7 +23,7 @@ state = { beers: [], data: [], offset: 0 }
   displayBeers = () => {
     return this.state.beers.map( beer => { 
       return(
-       <Table.Row> 
+       <Table.Row key={beer.id}> 
            <Table.Cell width={4} style={{ paddingLeft: '10%'}}>
            {beer.labels ?
             <Image
@@ -42,7 +42,7 @@ state = { beers: [], data: [], offset: 0 }
            <br />
            </Table.Cell>
            <Table.Cell width={4} style={{ paddingLeft: '10%'}}>
-           <Link to='#'>
+           <Link to={`/beer/${beer.name}`}>
            {beer.name}
            </Link> 
            <br />

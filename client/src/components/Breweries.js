@@ -33,7 +33,6 @@ fetchBreweries = (props, page = 1) => {
       dispatch(setHeaders(headers));
     })
     .catch( err => {
-      // dispatch(setFlash('Error Fetching Breweries.', 'red'));
       dispatch(setHeaders(err.headers));
     })
     .then( () => {
