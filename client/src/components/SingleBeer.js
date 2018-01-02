@@ -3,7 +3,7 @@ import { Container, Header } from 'semantic-ui-react';
 import axios from 'axios';
 
 class SingleBeer extends Component {
-  state = { beer: [] }; 
+  state = { beer: [], loaded: false }; 
 
   componentDidMount() { 
     const name = this.props.match.params.name;
@@ -17,16 +17,22 @@ class SingleBeer extends Component {
   }
 
   render() {
-    const { beer } = this.state;
-    return (
-      <div style={{color: 'white'}}> 
-        <Container> 
-        <p> Here is a beer </p>
-        <Header style={{ color: 'white'}}> {beer.name} </Header> 
-        <Header> {beer.id} </Header> 
-        </Container> 
-       </div>
+    if (this.state.loaded){
+      return (
+        <div style={{color: 'white'}}> 
+          <Container> 
+          <p> Here is a beer </p>
+          <p> {this.state.beer[0].name} </p> 
+          <p> {this.state.beer[0].id} </p> 
+          </Container> 
+         </div>
+        )
+    } else {
+      return(
+
+        <div>loading</div>
       )
+    }
   }
 }
 

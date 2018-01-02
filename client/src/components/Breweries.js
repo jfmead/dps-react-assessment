@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Table, Segment, Image, Loader, Dimmer, Container, Card } from 'semantic-ui-react';
+import { Segment, Image, Loader, Dimmer, Container, Card, Header } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setHeaders } from '../actions/headers';
@@ -10,14 +10,14 @@ import InfiniteScroll from 'react-infinite-scroller';
 import axios from 'axios';
 
 class Breweries extends Component {
-state = { page: 1, hasMore: true }
+state = { page: 1, hasMore: true, loaded: false}
 
 componentDidMount() {
-  this.props.dispatch(fetchBreweries());
+  this.props.dispatch(fetchBreweries(this.state.page));
 }
 
   displayBreweries = () => {
-    return this.props.breweries.map( brewery => { 
+    return this.props.breweries.map( brewery => {
       return(
         <Card key={brewery.id}>
            {brewery.images ?
@@ -49,7 +49,7 @@ componentDidMount() {
   }
 
 loadFunc = () => {
-  axios.get(`/api/all_breweries?page=${this.state.page + 1}`)
+  axios.get(`/api/all_breweries?page=${this.state.page + 1}&per_page=10`)
     .then( res => {
       this.props.dispatch({ type: 'MORE_BREWERIES', breweries: res.data.entries.breweries});
       this.setState({ page: this.state.page + 1, hasMore: res.data.entries.has_more})
@@ -63,6 +63,7 @@ render() {
   <Container> 
     <Segment basic style={{height:'700px', overflow:'auto'}}>
       <SearchBreweries />
+      <Header as='h1' textAlign='center' style={{color:'white'}} > Breweries </Header> 
       <InfiniteScroll
             pageStart={0}
             loadMore={this.loadFunc}

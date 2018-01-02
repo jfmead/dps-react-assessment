@@ -5,9 +5,9 @@ const setBreweries = (breweries) => {
   return { type: 'SET_BREWERIES', breweries}
 }
 
-export const fetchBreweries = () => {
+export const fetchBreweries = (page) => {
   return dispatch => {
-    axios.get('/api/all_breweries?')
+    axios.get(`/api/all_breweries?`)
       .then( res => {
         dispatch(setBreweries(res.data.entries))
       })

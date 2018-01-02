@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import { Table, Segment, List, Header, Image, Loader, Dimmer, Card } from 'semantic-ui-react';
+import { Segment, Header, Image, Loader, Dimmer, Card } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import placeholder from '../images/placeholder.png'
 import InfiniteScroll from 'react-infinite-scroller'
 import axios from 'axios';
 
 class Beers extends Component {
-state = { beers: [], data: [], offset: 0, loaded: false }
+state = { beers: [], loaded: false }
 
 
   componentDidMount() {
@@ -62,14 +62,6 @@ loadFunc = () => {
      })
   }
 
-  handlePageClick = (data) => {
-    let selected = data.selected;
-    let offset = Math.ceil(selected * this.props.perPage);
-
-    this.setState({offset: offset}, () => {
-      this.displayBeers();
-    });
-  };
 
 render() {
 
