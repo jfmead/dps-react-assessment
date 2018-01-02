@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Segment, Image, Loader, Dimmer, Container, Card, Header } from 'semantic-ui-react';
+import { Segment, Image, Loader, Dimmer, Container, Card, Header, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setHeaders } from '../actions/headers';
@@ -15,6 +15,7 @@ state = { page: 1, hasMore: true, loaded: false}
 componentDidMount() {
   this.props.dispatch(fetchBreweries(this.state.page));
 }
+
 
   displayBreweries = () => {
     return this.props.breweries.map( brewery => {
@@ -39,10 +40,10 @@ componentDidMount() {
             <Card.Header>
               {brewery.name}
             </Card.Header>
-            {/* <Card.Description>
-              {brewery.description}
-            </Card.Description> */}
           </Card.Content>
+          <Link to={`/brewery/${brewery.name}`}>
+          <Button> View Description </Button> 
+          </Link>
         </Card>
         )
      })
@@ -62,7 +63,6 @@ render() {
   return (
   <Container> 
     <Segment basic style={{height:'700px', overflow:'auto'}}>
-      <SearchBreweries />
       <Header as='h1' textAlign='center' style={{color:'white'}} > Breweries </Header> 
       <InfiniteScroll
             pageStart={0}

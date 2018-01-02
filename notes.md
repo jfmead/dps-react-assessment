@@ -27,3 +27,7 @@ Built a single page view for a beer. Tried to cheat by creating a new route beer
 12/30 10:30-11:30am 
 Still attempting to get infinite scroll to work, but it's still stuck in a loop. Tried accessing a single beer using beer[0].name but recieved an error. 
       
+
+Jan 2 11:00am - 5:00pm 
+Infinite scroll is my nemesis! Worked on singleBeer pages and singleBrewery page. Attempted to get modals working, but couldn't figure out how to change it from presentational to a class so that I could make the modal render data dynamically. 
+Did some styling, used cards instead of a table. 

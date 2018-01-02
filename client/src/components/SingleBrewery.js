@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
 import { Container, Header, Image, Card, Segment, Grid, Item} from 'semantic-ui-react';
-import beer_image from '../images/beer_image.jpg'
+import placeholder from '../images/placeholder.png'
 import axios from 'axios'
 
-class SingleBeer extends Component {
-  state = { beer: [], loaded: false }; 
+class SingleBrewery extends Component {
+  state = { brewery: [], loaded: false }; 
 
   componentDidMount() { 
     const name = this.props.match.params.name;
-    axios.get(`/api/beer/${name}`)
+    axios.get(`/api/brewery/${name}`)
       .then( res => {
-        this.setState({ beer: res.data.entries, loaded: true });
+        this.setState({ brewery: res.data.entries, loaded: true });
       })
       .catch( err => {
         console.log(err);
@@ -22,24 +22,24 @@ class SingleBeer extends Component {
       return (
       <Item.Group> 
         <Item style={{ backgroundColor: 'white', color: 'black', padding: '10%' }}>
-           {this.state.beer[0].labels ?
+           {this.state.brewery[0].labels ?
             <Image
               centered
-              src={this.state.beer[0].labels.medium}
-              alt={`${this.state.beer[0].name} logo`}
+              src={this.state.brewery[0].labels.medium}
+              alt={`${this.state.brewery[0].name} logo`}
             />
             :
             <Image
               centered
-              src={beer_image}
+              src={placeholder}
               alt='Brewery placeholder image'
             /> }
           <Item.Content>
-            <Item.Header> {this.state.beer[0].name} </Item.Header>
+            <Item.Header> {this.state.brewery[0].name} </Item.Header>
             <Item.Meta>
-              Organic: {this.state.beer[0].is_organic}
+              Organic: {this.state.brewery[0].is_organic}
             </Item.Meta>
-            <Item.Description>{this.state.beer[0].description} </Item.Description>
+            <Item.Description>{this.state.brewery[0].description} </Item.Description>
           </Item.Content>
        </Item>
             </Item.Group>
@@ -53,4 +53,4 @@ class SingleBeer extends Component {
   }
 }
 
-export default SingleBeer; 
+export default SingleBrewery; 

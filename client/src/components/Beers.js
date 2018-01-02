@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import { Segment, Header, Image, Loader, Dimmer, Card } from 'semantic-ui-react';
+import { Segment, Header, Image, Loader, Dimmer, Card, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import placeholder from '../images/placeholder.png'
+import beer_image from '../images/beer_image.jpg'
 import InfiniteScroll from 'react-infinite-scroller'
 import axios from 'axios';
 
@@ -44,19 +44,17 @@ loadFunc = () => {
             :
             <Image
               centered
-              src={placeholder}
-              alt='Brewery placeholder image'
+              src={beer_image}
+              alt='Beer placeholder image'
             /> }
             <Card.Content>
               <Card.Header>
-                <Link to={`/beer/${beer.name}`}>
                 {beer.name}
-              </Link>
               </Card.Header>
-            {/* <Card.Description>
-                 {beer.description}
-            </Card.Description> */}
           </Card.Content>
+                <Link to={`/beer/${beer.name}`}>
+                <Button> View Description </Button> 
+                </Link>
          </Card>
       )
      })
