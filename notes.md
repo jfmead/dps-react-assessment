@@ -24,4 +24,6 @@ Built a single page view for a beer. Tried to cheat by creating a new route beer
       name: 'asdl;kfjads' 
       etc: 'askl;dfja' 
 
+12/30 10:30-11:30am 
+Still attempting to get infinite scroll to work, but it's still stuck in a loop. Tried accessing a single beer using beer[0].name but recieved an error. 
       

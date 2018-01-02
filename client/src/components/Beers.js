@@ -1,34 +1,43 @@
 import React, {Component} from 'react';
-import { Table, Segment, List, Header, Image } from 'semantic-ui-react';
+import { Table, Segment, List, Header, Image, Loader, Dimmer, Card } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import placeholder from '../images/placeholder.png'
-import ReactPaginate from 'react-paginate';
+import InfiniteScroll from 'react-infinite-scroller'
 import axios from 'axios';
 
 class Beers extends Component {
-state = { beers: [], data: [], offset: 0 }
+state = { beers: [], data: [], offset: 0, loaded: false }
 
 
   componentDidMount() {
     axios.get(`/api/all_beers?page=1&per_page=10`)
     .then( res => {
-      this.setState({ beers: res.data.entries });      
-    })
+      this.setState({ beers: res.data.entries  });      
+    })   
     .catch( err => {
-      console.log(err);
+      console.log(err);   
+    })
+  .then( () => {
+    this.setState({ loaded: true });
   });
-  }
+}
 
-
+loadFunc = () => {
+  axios.get(`/api/all_beers?page=${this.state.page + 1}`)
+    .then( res => {
+      this.props.dispatch({ type: 'MORE_BEERS', Beers: res.data.entries.beers});
+      this.setState({ page: this.state.page + 1, hasMore: res.data.entries.has_more})
+    })
+    .catch (err => {
+    }) 
+}
   displayBeers = () => {
     return this.state.beers.map( beer => { 
       return(
-       <Table.Row key={beer.id}> 
-           <Table.Cell width={4} style={{ paddingLeft: '10%'}}>
+       <Card key={beer.id}> 
            {beer.labels ?
             <Image
               centered
-              size='medium'
               src={beer.labels.medium}
               alt={`${beer.name} logo`}
             />
@@ -36,24 +45,19 @@ state = { beers: [], data: [], offset: 0 }
             <Image
               centered
               src={placeholder}
-              size="medium"
               alt='Brewery placeholder image'
             /> }
-           <br />
-           </Table.Cell>
-           <Table.Cell width={4} style={{ paddingLeft: '10%'}}>
-           <Link to={`/beer/${beer.name}`}>
-           {beer.name}
-           </Link> 
-           <br />
-           </Table.Cell>
-           <Table.Cell style={{ paddingRight: '10%'}} width={12}>
-           <p> 
-           {beer.description}
-           </p> 
-           <br />
-           </Table.Cell>
-         </Table.Row>
+            <Card.Content>
+              <Card.Header>
+                <Link to={`/beer/${beer.name}`}>
+                {beer.name}
+              </Link>
+              </Card.Header>
+            {/* <Card.Description>
+                 {beer.description}
+            </Card.Description> */}
+          </Card.Content>
+         </Card>
       )
      })
   }
@@ -68,29 +72,31 @@ state = { beers: [], data: [], offset: 0 }
   };
 
 render() {
+
+  if (this.state.loaded) 
   return (
     <Segment basic>
-    <Header style={{ color: 'white', textAlign: 'center'}} > Beers </Header> 
-    <Table> 
-    <Table.Body>
-    {this.displayBeers()}
-    </Table.Body> 
-    </Table>
-    <ReactPaginate previousLabel={"previous"}
-                       nextLabel={"next"}
-                       breakLabel={<a href="">...</a>}
-                       breakClassName={"break-me"}
-                       pageCount={this.state.pageCount}
-                       marginPagesDisplayed={2}
-                       pageRangeDisplayed={5}
-                       onPageChange={this.handlePageClick}
-                       containerClassName={"pagination"}
-                       subContainerClassName={"pages pagination"}
-                       activeClassName={"active"}
-                        />
+      <Header style={{ color: 'white', textAlign: 'center'}} > Beers </Header> 
+      <InfiniteScroll
+            pageStart={0}
+            loadMore={this.loadFunc}
+            hasMore={this.state.hasMore}
+            loader={<div className="loader">Loading ...</div>}
+            useWindow={false}
+          >
+      <Card.Group itemsPerRow={5}>
+      {this.displayBeers()}
+      </Card.Group> 
+      </InfiniteScroll>
     </Segment> 
   )
-}
+    else
+      return(
+        <Dimmer active style={{ height: '100vh' }}>
+          <Loader>Loading Beers...</Loader>
+        </Dimmer>
+    )
+  }
 }
 
 export default Beers;
