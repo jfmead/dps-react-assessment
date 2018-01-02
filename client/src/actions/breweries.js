@@ -7,7 +7,7 @@ const setBreweries = (breweries) => {
 
 export const fetchBreweries = (page) => {
   return dispatch => {
-    axios.get(`/api/all_breweries?`)
+    axios.get(`/api/all_breweries?page=${page}`)
       .then( res => {
         dispatch(setBreweries(res.data.entries))
       })
