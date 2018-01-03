@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Container, Header, Image, Card, Segment, Grid, Item} from 'semantic-ui-react';
+import { Image, Item} from 'semantic-ui-react';
 import placeholder from '../images/placeholder.png'
 import axios from 'axios'
 

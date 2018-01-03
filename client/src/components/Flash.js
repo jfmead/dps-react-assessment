@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { clearFlash } from '../actions/flash';
 import '../styles/flash.css';
-import { Button } from 'semantic-ui-react';
+// import { Button } from 'semantic-ui-react';
 
 const fadeFlash = (dispatch) => {
   setTimeout( () => {

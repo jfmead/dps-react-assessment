@@ -1,16 +1,14 @@
 import React, {Component} from 'react';
-import { Segment, Image, Loader, Dimmer, Container, Card, Header, Button } from 'semantic-ui-react';
+import { Segment, Image, Container, Card, Header, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setHeaders } from '../actions/headers';
 import { fetchBreweries } from '../actions/breweries';
-import SearchBreweries from './SearchBreweries'
 import placeholder from '../images/placeholder.png';
 import InfiniteScroll from 'react-infinite-scroller';
 import axios from 'axios';
 
 class Breweries extends Component {
-state = { page: 1, hasMore: true}
+state = { page: 1 }
 
 componentDidMount() {
   this.props.dispatch(fetchBreweries());
@@ -19,7 +17,7 @@ componentDidMount() {
 displayBreweries = () => {
   return this.props.breweries.map( brewery => {
     return(
-      <Card key={brewery.id}>
+      <Card key={brewery.name}>
           {brewery.images ?
                 <Image
                   centered
@@ -49,9 +47,9 @@ displayBreweries = () => {
 }
 
 loadFunc = () => {
-  axios.get(`/api/all_breweries?page=${this.state.page + 1}`)
+  axios.get(`/api/all_breweries?page=${this.state.page + 1}&per_page=10`)
     .then( res => {
-      this.props.dispatch({ type: 'MORE_BREWERIES', breweries: res.data.breweries});
+      this.props.dispatch({ type: 'MORE_BREWERIES', breweries: res.data.entries});
       this.setState({ page: this.state.page + 1, hasMore: res.data.has_more })
     })
     .catch (err => {
@@ -61,16 +59,16 @@ loadFunc = () => {
 render() {
   return (
   <Container> 
+   <Header as='h1' textAlign='center' style={{color:'white'}} > Breweries </Header> 
     <Segment basic style={{height:'700px', overflow:'auto'}}>
-      <Header as='h1' textAlign='center' style={{color:'white'}} > Breweries </Header> 
       <InfiniteScroll
             pageStart={0}
             loadMore={this.loadFunc}
-            hasMore={this.state.hasMore}
+            hasMore={true || false}
             loader={<div className="loader">Loading ...</div>}
             useWindow={false}
           >
-          <Card.Group itemsPerRow={5}> 
+          <Card.Group stackable itemsPerRow={5}> 
             { this.displayBreweries() }
           </Card.Group>
        </InfiniteScroll>
