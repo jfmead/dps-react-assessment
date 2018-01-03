@@ -48,7 +48,7 @@ loadFunc = () => {
   axios.get(`/api/all_beers?page=${this.state.page + 1}&per_page=10`)
     .then( res => {
       this.props.dispatch({ type: 'MORE_BEERS', beers: res.data.entries});
-      this.setState({ page: this.state.page + 1, hasMore: res.data.has_more })
+      this.setState({ page: this.state.page + 1 })
     })
     .catch (err => {
     }) 

@@ -6,11 +6,13 @@ import fetchBreweries from '../actions/breweries'
 import { Search, Grid, Header } from 'semantic-ui-react'
 
 const source = ( () => ({
-  
+  //grab data from 'api/all_breweries'
+  //but this isn't a class 
+
 }))
 
 class SearchBreweries extends Component {
-  
+
   componentWillMount() {
     this.resetComponent()
   }
@@ -39,8 +41,8 @@ class SearchBreweries extends Component {
     const { isLoading, value, results } = this.state
 
     return (
-      <Grid>
-        <Grid.Column width={8}>
+      <Grid style={{paddingTop: '5%', height: '50px'}}>
+        <Grid.Column width={8} >
           <Search
             loading={isLoading}
             onResultSelect={this.handleResultSelect}
@@ -50,12 +52,12 @@ class SearchBreweries extends Component {
             {...this.props}
           />
         </Grid.Column>
-        <Grid.Column width={8}>
+        {/* <Grid.Column width={8}>
           <Header>State</Header>
           <pre>{JSON.stringify(this.state, null, 2)}</pre>
           <Header>Options</Header>
           <pre>{JSON.stringify(source, null, 2)}</pre>
-        </Grid.Column>
+        </Grid.Column> */}
       </Grid>
     )
   }
